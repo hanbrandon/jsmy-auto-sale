@@ -192,11 +192,17 @@ export const Contact = () => {
                   {/* Dynamic Fields based on Form Type */}
                   {activeForm === "CARFAX" && (
                     <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
-                      <div className="p-6 rounded-2xl bg-white/5 border border-white/10">
-                        <p className="text-sm text-white/80 leading-relaxed">
-                          <span className="text-white font-bold">Important:</span> Carfax reports require a small processing fee of <span className="text-white font-bold">$10</span>. 
-                          Please send the fee via Zelle or Venmo to <span className="text-white font-bold">714-681-0161</span> after submitting this form.
-                        </p>
+                      <div className="p-6 rounded-2xl bg-amber-500/10 border border-amber-500/20 flex gap-4 items-start">
+                        <div className="w-10 h-10 rounded-full bg-amber-500/20 flex items-center justify-center shrink-0">
+                          <Search size={20} className="text-amber-400" />
+                        </div>
+                        <div>
+                          <p className="text-sm text-amber-200/90 leading-relaxed">
+                            <span className="text-amber-400 font-black uppercase tracking-wider text-xs block mb-1">Important Instruction</span>
+                            Carfax reports require a small processing fee of <span className="text-white font-bold">$10</span>. 
+                            Please send the fee via Zelle or Venmo to <span className="text-white font-bold underline underline-offset-4">714-681-0161</span> after submitting this form.
+                          </p>
+                        </div>
                       </div>
                       <div className="space-y-2">
                         <label htmlFor="vin" className={labelStyles}>VIN (Vehicle Identification Number)</label>
@@ -245,18 +251,69 @@ export const Contact = () => {
                   )}
 
                   {activeForm === "SELL_CAR" && (
-                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                      <div className="space-y-2">
-                        <label htmlFor="my_car" className={labelStyles}>Vehicle Details</label>
-                        <input type="text" id="my_car" name="my_car" required className={inputStyles} placeholder="Year, Make, Model, Mileage" />
+                    <motion.div initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} className="space-y-6">
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label htmlFor="vin_sell" className={labelStyles}>Vehicle Identification Number (VIN)</label>
+                          <input type="text" id="vin_sell" name="vin" required className={inputStyles} placeholder="VIN (17 Digits)" />
+                        </div>
+                        <div className="space-y-2">
+                          <label htmlFor="mileage" className={labelStyles}>Total Accumulated Miles</label>
+                          <div className="relative">
+                            <input type="number" id="mileage" name="mileage" required className={inputStyles} placeholder="00,000" />
+                            <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-white/20 uppercase tracking-widest">Miles</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="space-y-2">
-                        <label htmlFor="condition" className={labelStyles}>Condition</label>
-                        <select id="condition" name="condition" className={selectStyles}>
-                          <option value="excellent">Excellent</option>
-                          <option value="good">Good</option>
-                          <option value="fair">Fair</option>
-                        </select>
+
+                      <div className="space-y-4">
+                        <label className={labelStyles}>Exterior Finish</label>
+                        <div className="grid grid-cols-4 sm:grid-cols-6 md:grid-cols-7 gap-3">
+                          {[
+                            { name: "White", hex: "#FFFFFF" },
+                            { name: "Black", hex: "#000000" },
+                            { name: "Silver", hex: "#C0C0C0" },
+                            { name: "Grey", hex: "#808080" },
+                            { name: "Blue", hex: "#0000FF" },
+                            { name: "Red", hex: "#FF0000" },
+                            { name: "Brown", hex: "#A52A2A" },
+                            { name: "Gold", hex: "#FFD700" },
+                            { name: "Beige", hex: "#F5F5DC" },
+                            { name: "Green", hex: "#008000" },
+                            { name: "Orange", hex: "#FFA500" },
+                            { name: "Other", hex: "transparent" },
+                          ].map((color) => (
+                            <label key={color.name} className="group cursor-pointer flex flex-col items-center gap-2">
+                              <input type="radio" name="exterior_color" value={color.name} className="sr-only peer" />
+                              <div className={cn(
+                                "w-10 h-10 rounded-full border-2 border-white/5 transition-all peer-checked:border-white peer-checked:scale-110",
+                                color.name === "Other" ? "bg-gradient-to-tr from-white/20 via-white/40 to-white/20" : ""
+                              )} 
+                              style={{ backgroundColor: color.hex }} />
+                              <span className="text-[9px] font-bold uppercase tracking-wider text-white/30 group-hover:text-white transition-colors">{color.name}</span>
+                            </label>
+                          ))}
+                        </div>
+                      </div>
+
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="space-y-2">
+                          <label htmlFor="accident_history" className={labelStyles}>Accident History</label>
+                          <select id="accident_history" name="accident_history" className={selectStyles}>
+                            <option value="No Accidents">No Accidents</option>
+                            <option value="1 Incident">1 Incident</option>
+                            <option value="2+ Incidents">2+ Incidents</option>
+                          </select>
+                        </div>
+
+                        <div className="space-y-2">
+                          <label htmlFor="financial_status" className={labelStyles}>Financial Status</label>
+                          <select id="financial_status" name="financial_status" className={selectStyles}>
+                            <option value="Finance / Loan">Finance / Loan</option>
+                            <option value="Active Lease">Active Lease</option>
+                            <option value="Paid In Full">Paid In Full</option>
+                          </select>
+                        </div>
                       </div>
                     </motion.div>
                   )}
