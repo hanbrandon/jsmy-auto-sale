@@ -35,9 +35,9 @@ export const Button = ({
   };
 
   const sizes = {
-    sm: "px-4 py-2 text-sm",
-    md: "px-6 py-3 text-base",
-    lg: "px-8 py-4 text-lg",
+    sm: "px-4 py-2 text-xs font-bold uppercase tracking-wider",
+    md: "px-6 py-3 text-sm font-bold uppercase tracking-wider",
+    lg: "px-8 py-4 text-sm font-bold uppercase tracking-widest",
     icon: "p-3"
   };
 

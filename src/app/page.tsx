@@ -1,6 +1,3 @@
-"use client";
-
-import { useTranslation } from "@/hooks/useTranslation";
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
@@ -10,40 +7,49 @@ import { Testimonials } from "@/components/sections/Testimonials";
 import { FAQ } from "@/components/sections/FAQ";
 import { Contact } from "@/components/sections/Contact";
 import { Footer } from "@/components/layout/Footer";
-import { motion } from "framer-motion";
-import { Phone } from "lucide-react";
+import { FloatingActionButton } from "@/components/ui/FloatingActionButton";
+import { BeholdPost } from "@/types/instagram";
 
-export default function Home() {
-  const { t } = useTranslation();
+async function getInstagramPosts(): Promise<BeholdPost[]> {
+  const feedId = process.env.NEXT_PUBLIC_BEHOLD_FEED_ID;
+  if (!feedId) return [];
+
+  try {
+    const response = await fetch(`https://feeds.behold.so/${feedId}`, {
+      next: { revalidate: 3600 }, // Revalidate every hour
+    });
+    if (!response.ok) throw new Error("Failed to fetch feed");
+    const data = await response.json();
+    // Behold can return an array directly or an object with a posts key
+    return Array.isArray(data) ? data : data.posts || [];
+  } catch (error) {
+    console.error("Error fetching Instagram feed:", error);
+    return [];
+  }
+}
+
+export default async function Home() {
+  const instagramPosts = await getInstagramPosts();
 
   return (
     <div className="min-h-screen bg-[#050505] text-white selection:bg-white selection:text-black">
-      <Navbar t={t} />
+      <Navbar />
       
       <main>
-        <Hero t={t} />
-        <Services t={t} />
-        <InstagramGallery t={t} />
-        <WhyChooseUs t={t} />
-        <Testimonials t={t} />
-        <FAQ t={t} />
-        <Contact t={t} />
+        <Hero />
+        <Services />
+        <InstagramGallery initialPosts={instagramPosts} />
+        <WhyChooseUs />
+        <Testimonials />
+        <FAQ />
+        <Contact />
       </main>
       
-      <Footer t={t} />
+      <footer className="relative z-10">
+        <Footer />
+      </footer>
 
-      {/* Floating Action Button for mobile */}
-      <motion.a
-        href="tel:7146810161"
-        aria-label="Call JSMY Auto Sales"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="fixed bottom-8 right-8 z-50 w-16 h-16 bg-white text-black rounded-full flex items-center justify-center shadow-2xl md:hidden"
-      >
-        <Phone size={24} strokeWidth={3} />
-      </motion.a>
+      <FloatingActionButton />
     </div>
   );
 }

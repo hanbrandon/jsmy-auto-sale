@@ -9,12 +9,13 @@ interface SectionProps {
   className?: string;
   id?: string;
   animate?: boolean;
+  disableContain?: boolean;
 }
 
-export const Section = ({ children, className, id, animate = true }: SectionProps) => {
+export const Section = ({ children, className, id, animate = true, disableContain = false }: SectionProps) => {
   if (!animate) {
     return (
-      <section id={id} className={cn("py-20 px-6 md:px-12", className)}>
+      <section id={id} className={cn("py-20 md:py-32", className)}>
         {children}
       </section>
     );
@@ -27,7 +28,8 @@ export const Section = ({ children, className, id, animate = true }: SectionProp
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.8, ease: [0.23, 1, 0.32, 1] }}
-      className={cn("py-20 px-6 md:px-12", className)}
+      className={cn("py-20 md:py-32", className)}
+      style={!disableContain ? { contentVisibility: "auto", containIntrinsicSize: "0 500px" } : undefined}
     >
       {children}
     </motion.section>

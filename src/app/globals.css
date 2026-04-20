@@ -13,10 +13,13 @@
 @layer base {
   body {
     @apply bg-[#050505] text-white/70 font-sans antialiased selection:bg-white selection:text-black;
+    position: relative;
+    overflow-x: hidden;
   }
   
   h1, h2, h3, h4, h5, h6 {
     @apply font-display font-bold text-white tracking-tight;
+    text-wrap: balance;
   }
 }
 
@@ -37,18 +40,43 @@
     @apply transition-all duration-500 ease-[cubic-bezier(0.23,1,0.32,1)] hover:-translate-y-1 hover:shadow-2xl hover:shadow-white/5;
   }
 
-  .text-reveal {
-    @apply relative overflow-hidden inline-block;
+  .mesh-gradient {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+      radial-gradient(at 0% 0%, hsla(0,0%,100%,0.03) 0, transparent 50%),
+      radial-gradient(at 100% 100%, hsla(0,0%,100%,0.03) 0, transparent 50%),
+      radial-gradient(at 50% 0%, hsla(0,0%,100%,0.02) 0, transparent 50%);
+    z-index: -1;
   }
 
-  .reveal-content {
-    @apply block;
+  .animate-slow-spin {
+    animation: spin 30s linear infinite;
   }
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none !important;
+  scrollbar-width: none !important;
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none !important;
+  width: 0 !important;
+  height: 0 !important;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
 }
 
 /* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 6px;
+  width: 5px;
 }
 
 ::-webkit-scrollbar-track {
@@ -56,8 +84,9 @@
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #222;
+  background: #1a1a1a;
   border-radius: 10px;
+  transition: background 0.3s;
 }
 
 ::-webkit-scrollbar-thumb:hover {
@@ -67,4 +96,6 @@
 /* Smooth Scroll */
 html {
   scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }

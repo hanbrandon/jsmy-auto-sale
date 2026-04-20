@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Outfit } from "next/font/google";
+import { translations } from "@/constants/translations";
 import "./globals.css";
 
 const inter = Inter({
@@ -67,57 +68,73 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const t = translations.en;
+  const faqSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": t.faq.items.map(item => ({
+      "@type": "Question",
+      "name": item.q,
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": item.a
+      }
+    }))
+  };
+
+  const dealerSchema = [
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDealer",
+      "@id": "https://jsmyauto.com/#dealer",
+      "name": "JSMY Auto Sales",
+      "description": "Premium Automotive Experience specializing in new cars, leasing, and no-credit financing for Korean-speaking customers.",
+      "url": "https://jsmyauto.com",
+      "telephone": "+1-714-681-0161",
+      "priceRange": "$$$",
+      "image": "https://jsmyauto.com/logo.png",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "Irvine",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": 33.6846,
+        "longitude": -117.8265
+      },
+      "openingHoursSpecification": [
+        {
+          "@type": "OpeningHoursSpecification",
+          "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+          "opens": "09:00",
+          "closes": "19:00"
+        }
+      ]
+    },
+    {
+      "@context": "https://schema.org",
+      "@type": "AutoDealer",
+      "name": "JSMY Auto Sales San Diego",
+      "url": "https://jsmyauto.com",
+      "telephone": "+1-714-681-0161",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "San Diego",
+        "addressRegion": "CA",
+        "addressCountry": "US"
+      }
+    }
+  ];
+
   return (
     <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
       <head>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
-            __html: JSON.stringify([
-              {
-                "@context": "https://schema.org",
-                "@type": "AutoDealer",
-                "@id": "https://jsmyauto.com/#dealer",
-                "name": "JSMY Auto Sales",
-                "description": "Premium Automotive Experience specializing in new cars, leasing, and no-credit financing for Korean-speaking customers.",
-                "url": "https://jsmyauto.com",
-                "telephone": "+1-714-681-0161",
-                "priceRange": "$$$",
-                "image": "https://jsmyauto.com/logo.png",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "Irvine",
-                  "addressRegion": "CA",
-                  "addressCountry": "US"
-                },
-                "geo": {
-                  "@type": "GeoCoordinates",
-                  "latitude": 33.6846,
-                  "longitude": -117.8265
-                },
-                "openingHoursSpecification": [
-                  {
-                    "@type": "OpeningHoursSpecification",
-                    "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
-                    "opens": "09:00",
-                    "closes": "19:00"
-                  }
-                ]
-              },
-              {
-                "@context": "https://schema.org",
-                "@type": "AutoDealer",
-                "name": "JSMY Auto Sales San Diego",
-                "url": "https://jsmyauto.com",
-                "telephone": "+1-714-681-0161",
-                "address": {
-                  "@type": "PostalAddress",
-                  "addressLocality": "San Diego",
-                  "addressRegion": "CA",
-                  "addressCountry": "US"
-                }
-              }
-            ]),
+            __html: JSON.stringify([...dealerSchema, faqSchema]),
           }}
         />
       </head>

@@ -4,14 +4,11 @@ import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Globe, Menu, X, Phone } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { TranslationType, Language } from "@/constants/translations";
+import { translations } from "@/constants/translations";
 import { cn } from "@/utils/cn";
 
-interface NavbarProps {
-  t: TranslationType;
-}
-
-export const Navbar = ({ t }: NavbarProps) => {
+export const Navbar = () => {
+  const t = translations.en;
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
@@ -31,7 +28,7 @@ export const Navbar = ({ t }: NavbarProps) => {
   return (
     <nav className={cn(
       "fixed top-0 left-0 right-0 z-[100] transition-all duration-500",
-      scrolled ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/5" : "py-8 bg-transparent"
+      scrolled ? "py-4 bg-black/80 backdrop-blur-xl border-b border-white/5" : "py-6 md:py-8 bg-transparent"
     )}>
       <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
         {/* Logo */}

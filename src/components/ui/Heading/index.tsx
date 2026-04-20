@@ -22,7 +22,7 @@ export const Heading = ({
 }: HeadingProps) => {
   return (
     <div className={cn(
-      "mb-12 flex flex-col gap-4",
+      "mb-10 flex flex-col gap-4",
       centered ? "items-center text-center" : "items-start",
       className
     )}>
@@ -31,7 +31,7 @@ export const Heading = ({
           initial={{ opacity: 0, x: -20 }}
           whileInView={{ opacity: 1, x: 0 }}
           viewport={{ once: true }}
-          className="text-xs font-bold uppercase tracking-[0.2em] text-white/60"
+          className="text-[10px] font-bold uppercase tracking-[0.2em] text-white/60"
         >
           {tag}
         </motion.span>
@@ -42,7 +42,7 @@ export const Heading = ({
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
         transition={{ delay: 0.1 }}
-        className="text-4xl md:text-6xl font-bold tracking-tight"
+        className="text-3xl md:text-5xl font-bold tracking-tight"
       >
         {title1} {title2 && <span className="text-white/40">{title2}</span>}
       </motion.h2>

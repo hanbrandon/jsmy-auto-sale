@@ -1,6 +1,6 @@
 "use client";
 
-import { TranslationType } from "@/constants/translations";
+import { translations } from "@/constants/translations";
 import { Phone, MapPin } from "lucide-react";
 
 const InstagramIcon = () => (
@@ -11,14 +11,11 @@ const FacebookIcon = () => (
   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"/></svg>
 );
 
-interface FooterProps {
-  t: TranslationType;
-}
-
-export const Footer = ({ t }: FooterProps) => {
+export const Footer = () => {
+  const t = translations.en;
   return (
-    <footer className="py-20 px-6 md:px-12 border-t border-white/5 bg-black">
-      <div className="container mx-auto">
+    <footer className="py-20 border-t border-white/5 bg-black">
+      <div className="container mx-auto px-6 md:px-12">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
           <div className="md:col-span-2">
             <a href="#" className="flex flex-col mb-8">

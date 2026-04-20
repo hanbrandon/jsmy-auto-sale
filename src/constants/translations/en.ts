@@ -10,14 +10,14 @@ export const en = {
     tag: "Premium Automotive Experience",
     title1: "Elevated",
     title2: "Auto Partner",
-    sub: "New Cars, Leasing, Used Cars, No Credit Financing.",
+    sub: "Your trusted partner for new car leasing and used car sales in California.",
     location: "Irvine & San Diego.",
     allInOne: "All in One Place.",
     cta: "Call Now (714.681.0161)",
     consult: "Get Free Consultation",
     badges: {
       service: { label: "Service", value: "Expert Assistance" },
-      financing: { label: "Financing", value: "No Credit OK" },
+      financing: { label: "Financing", value: "Tailored Plans" },
       process: { label: "Process", value: "Fast Approval" }
     }
   },
@@ -25,15 +25,10 @@ export const en = {
     tag: "Our Expertise",
     title1: "Tailored",
     title2: "Solutions",
-    sub: "We provide a full spectrum of automotive services designed specifically for our community in California.",
+    sub: "Simplified automotive solutions focused on your needs.",
     items: [
-      { title: "New Car Purchase & Lease", desc: "Access all major brands with exclusive community pricing.", tag: "Premium" },
-      { title: "Used Car Sales & Trade-in", desc: "Top dollar for your trade-in and certified pre-owned inventory.", tag: "Value" },
-      { title: "Expat Lease & Financing", desc: "Specialized programs for newcomers and international professionals.", tag: "Expat" },
-      { title: "No Credit / Bad Credit Auto Loans", desc: "High approval rates regardless of your credit history.", tag: "Financing" },
-      { title: "Short & Long-term Rentals", desc: "Flexible rental options for any duration or budget.", tag: "Flexible" },
-      { title: "Insurance & Accident Assistance", desc: "Comprehensive support for claims and premium coverage.", tag: "Support" },
-      { title: "DMV Registration Services", desc: "Skip the lines. We handle all paperwork and registration.", tag: "Admin" }
+      { title: "New Car Purchase & Lease", desc: "Access all major brands with exclusive community pricing and expert guidance.", tag: "Premium" },
+      { title: "Used Car Buy & Sell", desc: "Get top dollar for your vehicle or find your perfect pre-owned car with complete transparency.", tag: "Value" }
     ]
   },
   gallery: {
