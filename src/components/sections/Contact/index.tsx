@@ -323,13 +323,30 @@ export const Contact = () => {
                     <textarea id="notes" name="notes" rows={4} className={cn(inputStyles, "resize-none")} placeholder="Tell us more about your request..."></textarea>
                   </div>
 
-                  <div className="flex flex-col gap-4">
+                  <div className="flex flex-col gap-6">
+                    <label className="flex gap-4 cursor-pointer group">
+                      <div className="relative flex items-center justify-center mt-1">
+                        <input 
+                          type="checkbox" 
+                          id="privacy_agree" 
+                          name="privacy_agree" 
+                          required 
+                          className="peer appearance-none w-5 h-5 rounded-md border border-white/10 bg-white/5 checked:bg-white checked:border-white transition-all" 
+                        />
+                        <CheckCircle2 size={12} className="absolute text-black opacity-0 peer-checked:opacity-100 transition-opacity" />
+                      </div>
+                      <span className="text-[11px] text-white/40 leading-relaxed group-hover:text-white/60 transition-colors">
+                        I hereby acknowledge the Privacy Policy and grant explicit authorization to the <span className="text-white/60 font-bold">JSMY AUTO MANAGER</span> to contact me via encrypted channels (Phone/SMS/Email) regarding this strategic appraisal.
+                      </span>
+                    </label>
+
                     {error && (
                       <p className="text-red-400 text-xs font-bold pl-1">{error}</p>
                     )}
+                    
                     <Button 
                       type="submit" 
-                      className="w-full py-4 text-sm font-black tracking-widest uppercase disabled:opacity-50 disabled:cursor-not-allowed" 
+                      className="w-full py-4 text-sm font-black tracking-widest uppercase disabled:opacity-30 disabled:cursor-not-allowed" 
                       aria-label={`Submit ${forms.find(f => f.id === activeForm)?.label}`}
                       disabled={isSending}
                     >
