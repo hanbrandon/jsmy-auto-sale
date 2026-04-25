@@ -1,8 +1,8 @@
-import { en } from "./en";
+import { en } from './en';
 
 export const translations = {
-  en
+    en,
 } as const;
 
-export type Language = "en";
+export type Language = 'en';
 export type TranslationType = typeof en;

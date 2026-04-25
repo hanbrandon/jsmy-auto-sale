@@ -1,8 +1,8 @@
-"use client";
+'use client';
 
-import { translations, TranslationType } from "@/constants/translations";
+import { translations, TranslationType } from '@/constants/translations';
 
 export const useTranslation = () => {
-  const t: TranslationType = translations.en;
-  return { t };
+    const t: TranslationType = translations.en;
+    return { t };
 };

@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JSMY Auto Calculator</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #f0f2f7;
+  --surface: #ffffff;
+  --surface2: #f6f7fb;
+  --surface3: #eceef5;
+  --border: rgba(0,0,0,0.08);
+  --border2: rgba(0,0,0,0.15);
+  --accent: #4a5cf7;
+  --accent2: #3347e8;
+  --accent-glow: rgba(74,92,247,0.08);
+  --text: #1a1d2e;
+  --text2: #4a4f6a;
+  --text3: #8a90aa;
+  --green: #0e9e5a;
+  --shadow: 0 2px 12px rgba(0,0,0,0.07);
+  --r: 12px;
+  --rsm: 8px;
+  --rlg: 16px;
+}
+
+body {
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 28px 16px 60px;
+}
+
+/* Header */
+.app-header {
+  max-width: 780px; margin: 0 auto 22px;
+  display: flex; align-items: center; justify-content: space-between; gap: 12px;
+}
+.app-logo { font-size: 19px; font-weight: 700; letter-spacing: -0.5px; color: var(--text); }
+.app-logo span { color: var(--accent); }
+.header-links { display: flex; gap: 6px; flex-wrap: wrap; }
+.header-links a {
+  font-size: 11px; font-weight: 600; color: var(--text3);
+  text-decoration: none; padding: 5px 12px;
+  border: 1px solid var(--border2); border-radius: 20px;
+  background: var(--surface); transition: all 0.15s;
+  letter-spacing: 0.03em; text-transform: uppercase;
+}
+.header-links a:hover { color: var(--accent2); border-color: var(--accent); background: var(--accent-glow); }
+
+/* DMV badge */
+.dmv-badge {
+  max-width: 780px; margin: 0 auto 18px;
+  display: flex; align-items: center; gap: 7px;
+  font-size: 11px; color: var(--text3); font-weight: 500;
+}
+.dmv-badge::before {
+  content: ''; width: 6px; height: 6px; border-radius: 50%;
+  background: var(--green); box-shadow: 0 0 5px rgba(14,158,90,.45); flex-shrink: 0;
+}
+
+/* Tabs */
+.tab-nav {
+  max-width: 780px; margin: 0 auto 20px;
+  display: flex; background: var(--surface);
+  border-radius: var(--r); padding: 4px; gap: 3px;
+  box-shadow: var(--shadow);
+}
+.tab-btn {
+  flex: 1; padding: 10px 8px; font-size: 13px; font-weight: 500;
+  font-family: 'Inter', sans-serif; color: var(--text3);
+  background: transparent; border: none; border-radius: var(--rsm);
+  cursor: pointer; transition: all 0.15s;
+}
+.tab-btn:hover:not(.active) { color: var(--text2); background: var(--surface2); }
+.tab-btn.active { color: var(--accent2); background: var(--accent-glow); font-weight: 600; }
+
+/* Panels */
+.panel { display: none; }
+.panel.active { display: block; }
+
+/* Layout */
+.calc-layout {
+  max-width: 780px; margin: 0 auto;
+  display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: start;
+}
+@media (max-width: 620px) { .calc-layout { grid-template-columns: 1fr; } }
+
+/* Card */
+.card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rlg); padding: 22px; box-shadow: var(--shadow);
+}
+.card-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 18px;
+}
+
+/* Fields */
+.field { margin-bottom: 12px; }
+.field label {
+  display: block; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 5px;
+}
+.iw { position: relative; }
+.iw .pre, .iw .suf {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  font-size: 13px; color: var(--text3); pointer-events: none;
+}
+.iw .pre { left: 11px; }
+.iw .suf { right: 11px; }
+.field input {
+  width: 100%; height: 40px;
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: var(--rsm); color: var(--text);
+  font-size: 14px; font-family: 'Inter', sans-serif;
+  padding: 0 11px; transition: border-color 0.15s, background 0.15s;
+}
+.field input.pp { padding-left: 24px; }
+.field input.sp { padding-right: 28px; }
+.field input:focus { outline: none; border-color: var(--accent); background: #fff; }
+.field input::placeholder { color: #c8ccd8; }
+.row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+/* Buttons */
+.calc-btn {
+  width: 100%; height: 44px; background: var(--accent); color: #fff;
+  font-size: 13px; font-weight: 700; font-family: 'Inter', sans-serif;
+  letter-spacing: 0.06em; text-transform: uppercase; border: none;
+  border-radius: var(--rsm); cursor: pointer; margin-top: 16px;
+  transition: background 0.15s, transform 0.1s;
+  box-shadow: 0 4px 14px rgba(74,92,247,.28);
+}
+.calc-btn:hover { background: var(--accent2); }
+.calc-btn:active { transform: scale(0.98); }
+.print-btn {
+  width: 100%; height: 36px; background: transparent;
+  border: 1.5px solid var(--border2); border-radius: var(--rsm);
+  color: var(--text3); font-size: 12px; font-weight: 500;
+  font-family: 'Inter', sans-serif; letter-spacing: 0.04em;
+  text-transform: uppercase; cursor: pointer; margin-top: 8px;
+  transition: all 0.15s;
+}
+.print-btn:hover { background: var(--surface2); color: var(--text2); }
+
+/* Acquisition Fee Dropdown */
+.acq-field { margin-bottom: 12px; }
+.acq-field > label {
+  display: block; font-size: 11px; font-weight: 500;
+  letter-spacing: 0.04em; text-transform: uppercase;
+  color: var(--text3); margin-bottom: 5px;
+}
+.acq-trigger {
+  display: flex; align-items: center; justify-content: space-between;
+  height: 40px; padding: 0 11px;
+  background: var(--surface2); border: 1.5px solid var(--border);
+  border-radius: var(--rsm); cursor: pointer;
+  transition: all 0.15s; user-select: none;
+}
+.acq-trigger:hover { border-color: var(--border2); background: #fff; }
+.acq-trigger.open {
+  border-color: var(--accent); border-bottom-color: transparent;
+  border-radius: var(--rsm) var(--rsm) 0 0; background: #fff;
+}
+.acq-left { display: flex; align-items: center; gap: 8px; }
+.acq-brand { font-size: 13px; font-weight: 600; color: var(--text); }
+.acq-fee   { font-size: 13px; color: var(--text2); }
+.acq-arr   { font-size: 9px; color: var(--text3); transition: transform 0.18s; }
+.acq-trigger.open .acq-arr { transform: rotate(180deg); }
+.acq-menu {
+  display: none; background: #fff;
+  border: 1.5px solid var(--accent); border-top: none;
+  border-radius: 0 0 var(--rsm) var(--rsm);
+  max-height: 260px; overflow-y: auto; scrollbar-width: thin;
+}
+.acq-menu.open { display: block; }
+.acq-item {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 11px; cursor: pointer;
+  border-bottom: 1px solid var(--border); transition: background 0.1s;
+}
+.acq-item:last-child { border-bottom: none; }
+.acq-item:hover { background: var(--surface2); }
+.acq-item.sel { background: var(--accent-glow); }
+.acq-item .ai-b { font-size: 13px; font-weight: 500; color: var(--text2); }
+.acq-item.sel .ai-b { color: var(--accent2); font-weight: 600; }
+.acq-item .ai-r { display: flex; align-items: center; gap: 6px; }
+.acq-item .ai-f { font-size: 13px; color: var(--text3); }
+.acq-item.sel .ai-f { color: var(--accent); }
+.acq-item .ai-ck { font-size: 11px; color: var(--accent); opacity: 0; }
+.acq-item.sel .ai-ck { opacity: 1; }
+
+/* Result Card */
+.result-card {
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rlg); padding: 22px;
+  box-shadow: var(--shadow); display: none;
+}
+.result-card.show { display: block; }
+.result-hero {
+  background: linear-gradient(135deg, rgba(74,92,247,.07), rgba(74,92,247,.02));
+  border: 1.5px solid rgba(74,92,247,.18);
+  border-radius: var(--r); padding: 18px 16px;
+  margin-bottom: 16px; text-align: center;
+}
+.rh-lbl {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--accent); margin-bottom: 4px;
+}
+.rh-val {
+  font-size: 34px; font-weight: 700; color: var(--text);
+  letter-spacing: -1.5px; line-height: 1.1;
+}
+.rh-sub { font-size: 12px; color: var(--text3); margin-top: 5px; }
+.r-rows { display: flex; flex-direction: column; }
+.r-row {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 13px;
+}
+.r-row:last-child { border-bottom: none; }
+.r-row .lbl { color: var(--text2); }
+.r-row .val { font-weight: 600; color: var(--text); }
+.r-row .val.hi { color: var(--accent); }
+
+/* ── Customer Info Section (화면 표시) ── */
+.customer-section {
+  max-width: 780px; margin: 0 auto 20px;
+  background: var(--surface); border: 1px solid var(--border);
+  border-radius: var(--rlg); padding: 18px 22px; box-shadow: var(--shadow);
+}
+.customer-section-title {
+  font-size: 10px; font-weight: 700; letter-spacing: 0.1em;
+  text-transform: uppercase; color: var(--text3); margin-bottom: 14px;
+}
+.customer-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 12px; }
+@media (max-width: 620px) { .customer-row { grid-template-columns: 1fr; } }
+.customer-row .field { margin-bottom: 0; }
+
+/* ── Print ── */
+.print-top { display: none; }
+.pt-footer  { display: none; }
+
+body.printing .app-header,
+body.printing .dmv-badge,
+body.printing .tab-nav,
+body.printing .calc-btn,
+body.printing .print-btn,
+body.printing .acq-field,
+body.printing .customer-section { display: none !important; }
+body.printing .panel { display: none !important; }
+body.printing .panel.active { display: block !important; }
+body.printing .result-card { display: block !important; }
+body.printing .print-top { display: block !important; }
+
+@media print {
+  @page { size: letter portrait; margin: 11mm 13mm 11mm 13mm; }
+  * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body { background: #fff !important; padding: 0 !important; font-size: 11px; }
+
+  .app-header, .dmv-badge, .tab-nav,
+  .calc-btn, .print-btn, .acq-field,
+  .customer-section { display: none !important; }
+  .panel { display: none !important; }
+  .panel.active { display: block !important; }
+  .result-card { display: block !important; }
+  .print-top { display: block !important; }
+
+  /* 엉었는 하위 요소는 모두 표시 */
+  .pt-company-bar { display: flex !important; justify-content: space-between; align-items: flex-start; padding-bottom: 10px; border-bottom: 2.5px solid #4a5cf7; margin-bottom: 8px; }
+  .pt-company-name { font-size: 18px; font-weight: 700; color: #1a1d2e; letter-spacing: -0.4px; line-height: 1.15; }
+  .pt-company-name span { color: #4a5cf7; }
+  .pt-company-tagline { font-size: 9px; color: #8a90aa; margin-top: 2px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .pt-company-info { text-align: right; font-size: 10px; color: #4a4f6a; line-height: 1.8; }
+  .pt-company-info a { color: #4a5cf7; text-decoration: none; }
+
+  .pt-customer-bar { display: grid !important; grid-template-columns: 1fr 1fr 1fr; gap: 10px; background: #f6f7fb; border: 1px solid #d8dae8; border-radius: 7px; padding: 10px 14px; margin-bottom: 10px; }
+  .pt-cust-lbl { font-size: 8px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: #8a90aa; margin-bottom: 3px; }
+  .pt-cust-val { font-size: 12px; font-weight: 600; color: #1a1d2e; border-bottom: 1px solid #c8cad8; min-height: 18px; padding-bottom: 2px; }
+
+  .pt-date-bar { display: flex !important; justify-content: flex-end; font-size: 9px; color: #aaa; margin-bottom: 10px; }
+
+  .calc-layout { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 10px !important; max-width: 100% !important; }
+  .card, .result-card { background: #fff !important; border: 1px solid #d8dae8 !important; border-radius: 7px !important; padding: 12px !important; box-shadow: none !important; break-inside: avoid; }
+  .result-hero { background: #f0f3ff !important; border: 1px solid #b8c2f8 !important; border-radius: 6px !important; padding: 11px !important; margin-bottom: 10px !important; }
+  .rh-lbl { color: #4a5cf7 !important; font-size: 8px !important; }
+  .rh-val { color: #1a1d2e !important; font-size: 24px !important; letter-spacing: -0.5px !important; }
+  .rh-sub { color: #6a6f8a !important; font-size: 9px !important; }
+  .r-row { padding: 5px 0 !important; }
+  .r-row .lbl { color: #6a6f8a !important; font-size: 10px !important; }
+  .r-row .val { color: #1a1d2e !important; font-size: 10px !important; font-weight: 600 !important; }
+  .r-row .val.hi { color: #4a5cf7 !important; }
+  .card-title { font-size: 8px !important; color: #8a90aa !important; margin-bottom: 9px !important; }
+  .field label { font-size: 8px !important; margin-bottom: 3px !important; }
+  .field input { height: 26px !important; font-size: 10px !important; background: #f6f7fb !important; border: 1px solid #d8dae8 !important; padding: 0 8px !important; }
+  .row2 { gap: 7px !important; }
+  .field { margin-bottom: 8px !important; }
+
+  .pt-footer { display: block !important; margin-top: 12px; font-size: 8px; color: #bbb; text-align: center; border-top: 1px solid #eee; padding-top: 6px; }
+}
+
+</style>
+</head>
+<body>
+
+<!-- 사로운 프린트 헤더 -->
+<div class="print-top">
+  <!-- 회사 정보 바 -->
+  <div class="pt-company-bar">
+    <div>
+      <div class="pt-company-name">JSMY <span>Auto</span> Sales</div>
+      <div class="pt-company-tagline">New Car Leasing &amp; Sales &middot; Used Car Sales &middot; Trade-In &middot; Car Rental</div>
+    </div>
+    <div class="pt-company-info">
+      8 Corporate Park, Ste 300, Irvine, CA 92606<br>
+      Tel: (714) 681-0161<br>
+      <a href="mailto:justin.jsmyautosales@gmail.com">justin.jsmyautosales@gmail.com</a><br>
+      <a href="http://www.jsmyautosales.com">www.jsmyautosales.com</a>
+    </div>
+  </div>
+
+  <!-- 고객 정보 바 -->
+  <div class="pt-customer-bar">
+    <div>
+      <div class="pt-cust-lbl">Customer Name</div>
+      <div class="pt-cust-val" id="pt_name"></div>
+    </div>
+    <div>
+      <div class="pt-cust-lbl">Email</div>
+      <div class="pt-cust-val" id="pt_email"></div>
+    </div>
+    <div>
+      <div class="pt-cust-lbl">Phone</div>
+      <div class="pt-cust-val" id="pt_phone"></div>
+    </div>
+  </div>
+
+  <!-- 날짜 -->
+  <div class="pt-date-bar">
+    Quote Date: <span id="printDate" style="margin-left:4px;"></span>
+  </div>
+</div>
+
+<header class="app-header">
+  <div class="app-logo">JSMY <span>Auto</span> Calculator</div>
+  <nav class="header-links">
+    <a href="https://www.cdtfa.ca.gov/taxes-and-fees/rates.aspx" target="_blank">Tax Rate</a>
+    <a href="https://www.carfaxonline.com" target="_blank">Carfax</a>
+    <a href="https://www.quickvalues.com/" target="_blank">QuickValue</a>
+    <a href="https://www.manheim.com" target="_blank">MMR</a>
+  </nav>
+</header>
+
+<div class="dmv-badge">CA DMV 2025–2026 &nbsp;·&nbsp; VLF 0.65% &nbsp;·&nbsp; TIF 최신 구간 &nbsp;·&nbsp; Acq Fee 2025 Updated</div>
+
+<div class="tab-nav">
+  <button class="tab-btn active" id="tab1" onclick="showTab(1)">Leasing</button>
+  <button class="tab-btn" id="tab2" onclick="showTab(2)">Purchasing</button>
+  <button class="tab-btn" id="tab3" onclick="showTab(3)">Used Vehicle</button>
+</div>
+
+<!-- Customer Info Section -->
+<div class="customer-section">
+  <div class="customer-section-title">Customer Information</div>
+  <div class="customer-row">
+    <div class="field">
+      <label>Customer Name</label>
+      <div class="iw"><input type="text" id="cust_name" placeholder="Full Name" oninput="syncCustomer()"></div>
+    </div>
+    <div class="field">
+      <label>Email</label>
+      <div class="iw"><input type="text" id="cust_email" placeholder="email@example.com" oninput="syncCustomer()"></div>
+    </div>
+    <div class="field">
+      <label>Phone #</label>
+      <div class="iw"><input type="text" id="cust_phone" placeholder="(000) 000-0000" oninput="syncCustomer()"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ── LEASING ── -->
+<div id="panel1" class="panel active">
+  <div class="calc-layout">
+    <div class="card">
+      <div class="card-title">Lease Details</div>
+
+      <div class="field">
+        <label>Year / Make / Model</label>
+        <div class="iw"><input type="text" id="l_model" placeholder="e.g. 2025 BMW X3 xDrive30i"></div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>MSRP</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="l_msrp" class="pp" placeholder="52000"></div>
+        </div>
+        <div class="field">
+          <label>Cap Cost</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="l_cap" class="pp" placeholder="49000"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Money Factor</label>
+          <div class="iw"><input type="text" id="l_mf" placeholder="0.00125"></div>
+        </div>
+        <div class="field">
+          <label>Residual (% or $)</label>
+          <div class="iw"><input type="text" id="l_res" placeholder="55"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Term (months)</label>
+          <div class="iw"><input type="text" id="l_term" placeholder="36"></div>
+        </div>
+        <div class="field">
+          <label>Total Drive Off</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="l_driveoff" class="pp" placeholder="0"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Rebate</label>
+        <div class="iw"><span class="pre">$</span><input type="text" id="l_rebate" class="pp" placeholder="0"></div>
+      </div>
+
+      <div class="acq-field">
+        <label>Acquisition Fee</label>
+        <input type="hidden" id="l_acq" value="925">
+        <div class="acq-trigger" id="acqTrig" onclick="toggleAcq()">
+          <div class="acq-left">
+            <span class="acq-brand" id="acqBrand">BMW / MINI</span>
+            <span class="acq-fee" id="acqFee">$925</span>
+          </div>
+          <span class="acq-arr">&#9660;</span>
+        </div>
+        <div class="acq-menu" id="acqMenu"></div>
+      </div>
+
+      <div class="field">
+        <label>Sales Tax</label>
+        <div class="iw"><span class="suf">%</span><input type="text" id="l_tax" class="sp" placeholder="10.25"></div>
+      </div>
+
+      <button class="calc-btn" onclick="calcLease()">Calculate</button>
+      <button class="print-btn" onclick="doPrint()">Print</button>
+    </div>
+
+    <div class="result-card" id="res1">
+      <div class="card-title">Results</div>
+      <div class="result-hero">
+        <div class="rh-lbl">Monthly Payment</div>
+        <div class="rh-val" id="r_pay">&nbsp;</div>
+        <div class="rh-sub" id="r_sub">&nbsp;</div>
+      </div>
+      <div class="r-rows">
+        <div class="r-row"><span class="lbl">Before Tax</span><span class="val" id="r_base"></span></div>
+        <div class="r-row"><span class="lbl">Tax</span><span class="val" id="r_tax"></span></div>
+        <div class="r-row"><span class="lbl">End of Lease (Residual)</span><span class="val" id="r_res"></span></div>
+        <div class="r-row"><span class="lbl">Registration Fee</span><span class="val hi" id="r_reg"></span></div>
+        <div class="r-row"><span class="lbl">APR Equivalent</span><span class="val" id="r_apr"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── PURCHASING ── -->
+<div id="panel2" class="panel">
+  <div class="calc-layout">
+    <div class="card">
+      <div class="card-title">Purchase Details</div>
+
+      <div class="field">
+        <label>Year / Make / Model</label>
+        <div class="iw"><input type="text" id="p_model" placeholder="e.g. 2025 Honda Accord Sport"></div>
+      </div>
+      <div class="field">
+        <label>Selling Price</label>
+        <div class="iw"><span class="pre">$</span><input type="text" id="p_price" class="pp" placeholder="35000"></div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Down Payment</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="p_down" class="pp" placeholder="3000"></div>
+        </div>
+        <div class="field">
+          <label>Term (months)</label>
+          <div class="iw"><input type="text" id="p_term" placeholder="60"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>APR</label>
+          <div class="iw"><span class="suf">%</span><input type="text" id="p_apr" class="sp" placeholder="5.9"></div>
+        </div>
+        <div class="field">
+          <label>Sales Tax</label>
+          <div class="iw"><span class="suf">%</span><input type="text" id="p_tax" class="sp" placeholder="10.25"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Rebate</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="p_rebate" class="pp" placeholder="0"></div>
+        </div>
+        <div class="field">
+          <label>Accessories</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="p_acc" class="pp" placeholder="0"></div>
+        </div>
+      </div>
+      <div class="field">
+        <label>Invoice / KBB</label>
+        <div class="iw"><span class="pre">$</span><input type="text" id="p_kbb" class="pp" placeholder="33000"></div>
+      </div>
+
+      <button class="calc-btn" onclick="calcPurchase()">Calculate</button>
+      <button class="print-btn" onclick="doPrint()">Print</button>
+    </div>
+
+    <div class="result-card" id="res2">
+      <div class="card-title">Results</div>
+      <div class="result-hero">
+        <div class="rh-lbl">Monthly Payment</div>
+        <div class="rh-val" id="p_pay">&nbsp;</div>
+      </div>
+      <div class="r-rows">
+        <div class="r-row"><span class="lbl">OTD with Rebate</span><span class="val" id="p_otd"></span></div>
+        <div class="r-row"><span class="lbl">Finance Amount</span><span class="val" id="p_fin"></span></div>
+        <div class="r-row"><span class="lbl">Finance Charge</span><span class="val" id="p_chg"></span></div>
+        <div class="r-row"><span class="lbl">Sales Tax</span><span class="val" id="p_tax_r"></span></div>
+        <div class="r-row"><span class="lbl">Registration Fee</span><span class="val hi" id="p_reg"></span></div>
+        <div class="r-row"><span class="lbl">Loan to Value</span><span class="val" id="p_ltv"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ── USED VEHICLE ── -->
+<div id="panel3" class="panel">
+  <div class="calc-layout">
+    <div class="card">
+      <div class="card-title">Used Vehicle Details</div>
+
+      <div class="field">
+        <label>Year / Make / Model</label>
+        <div class="iw"><input type="text" id="u_model" placeholder="e.g. 2022 Toyota RAV4"></div>
+      </div>
+      <div class="field">
+        <label>Selling Price</label>
+        <div class="iw"><span class="pre">$</span><input type="text" id="u_price" class="pp" placeholder="28000"></div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Down Payment</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="u_down" class="pp" placeholder="2000"></div>
+        </div>
+        <div class="field">
+          <label>Term (months)</label>
+          <div class="iw"><input type="text" id="u_term" placeholder="60"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>APR</label>
+          <div class="iw"><span class="suf">%</span><input type="text" id="u_apr" class="sp" placeholder="6.9"></div>
+        </div>
+        <div class="field">
+          <label>Sales Tax</label>
+          <div class="iw"><span class="suf">%</span><input type="text" id="u_tax" class="sp" placeholder="10.25"></div>
+        </div>
+      </div>
+      <div class="row2">
+        <div class="field">
+          <label>Rebate</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="u_rebate" class="pp" placeholder="0"></div>
+        </div>
+        <div class="field">
+          <label>Invoice / KBB</label>
+          <div class="iw"><span class="pre">$</span><input type="text" id="u_kbb" class="pp" placeholder="26000"></div>
+        </div>
+      </div>
+
+      <button class="calc-btn" onclick="calcUsed()">Calculate</button>
+      <button class="print-btn" onclick="doPrint()">Print</button>
+    </div>
+
+    <div class="result-card" id="res3">
+      <div class="card-title">Results</div>
+      <div class="result-hero">
+        <div class="rh-lbl">Monthly Payment</div>
+        <div class="rh-val" id="u_pay">&nbsp;</div>
+      </div>
+      <div class="r-rows">
+        <div class="r-row"><span class="lbl">OTD with Rebate</span><span class="val" id="u_otd"></span></div>
+        <div class="r-row"><span class="lbl">Finance Amount</span><span class="val" id="u_fin"></span></div>
+        <div class="r-row"><span class="lbl">Finance Charge</span><span class="val" id="u_chg"></span></div>
+        <div class="r-row"><span class="lbl">Sales Tax</span><span class="val" id="u_tax_r"></span></div>
+        <div class="r-row"><span class="lbl">Registration Fee</span><span class="val hi" id="u_reg"></span></div>
+        <div class="r-row"><span class="lbl">Loan to Value</span><span class="val" id="u_ltv"></span></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── Helpers ── */
+function g(id) { return parseFloat(document.getElementById(id).value) || 0; }
+function s(id, v) { var el = document.getElementById(id); if (el) el.textContent = v; }
+function fmt(n) { return '$' + n.toFixed(2).replace(/\B(?=(\d{3})+(?!\d))/g, ','); }
+function show(id) { document.getElementById(id).classList.add('show'); }
+
+/* ── Print handler ── */
+function doPrint() {
+  syncCustomer();
+  document.body.classList.add('printing');
+  window.print();
+  document.body.classList.remove('printing');
+}
+window.onbeforeprint = function() { syncCustomer(); document.body.classList.add('printing'); };
+window.onafterprint  = function() { document.body.classList.remove('printing'); };
+
+/* ── Enter key → Calculate ── */
+document.addEventListener('keydown', function(e) {
+  if (e.key !== 'Enter') return;
+  var active = ['1','2','3'].find(function(n) {
+    return document.getElementById('panel'+n).classList.contains('active');
+  });
+  if (active === '1') calcLease();
+  else if (active === '2') calcPurchase();
+  else if (active === '3') calcUsed();
+});
+
+/* ── Customer sync to print header ── */
+function syncCustomer() {
+  var name  = document.getElementById('cust_name')  ? document.getElementById('cust_name').value  : '';
+  var email = document.getElementById('cust_email') ? document.getElementById('cust_email').value : '';
+  var phone = document.getElementById('cust_phone') ? document.getElementById('cust_phone').value : '';
+  var pn = document.getElementById('pt_name');   if (pn) pn.textContent  = name;
+  var pe = document.getElementById('pt_email');  if (pe) pe.textContent  = email;
+  var pp = document.getElementById('pt_phone');  if (pp) pp.textContent  = phone;
+}
+
+/* ── Print date ── */
+(function() {
+  var el = document.getElementById('printDate');
+  if (el) el.textContent = new Date().toLocaleDateString('en-US', {year:'numeric',month:'long',day:'numeric'});
+})();
+
+/* ── Tabs ── */
+function showTab(n) {
+  for (var i = 1; i <= 3; i++) {
+    document.getElementById('panel'+i).classList.toggle('active', i===n);
+    document.getElementById('tab'+i).classList.toggle('active', i===n);
+  }
+}
+
+/* ── CA DMV 2025-2026 ──
+   Base Reg $76 + CHP $34 = $110 | VLF 0.65%
+   TIF: <$5K $33 | $5K-$25K $66 | $25K-$35K $132 | $35K-$60K $198 | $60K+ $231 */
+function calcReg(price) {
+  var tif = price < 5000 ? 33 : price < 25000 ? 66 : price < 35000 ? 132 : price < 60000 ? 198 : 231;
+  return price * 0.0065 + 110 + tif;
+}
+
+/* ── Acquisition Fee ── */
+var ACQ = [
+  {b:'Porsche',        f:1095},
+  {b:'BMW / MINI',     f:925},
+  {b:'Audi',           f:895},
+  {b:'Mercedes-Benz',  f:1095},
+  {b:'Lexus',          f:795},
+  {b:'Genesis',        f:750},
+  {b:'Infiniti',       f:700},
+  {b:'Cadillac',       f:695},
+  {b:'Volvo',          f:695},
+  {b:'Toyota',         f:650},
+  {b:'Hyundai',        f:650},
+  {b:'Kia',            f:650},
+  {b:'Volkswagen',     f:650},
+  {b:'Honda / Acura',  f:595},
+  {b:'Nissan',         f:595},
+  {b:'Subaru',         f:595},
+  {b:'Mazda',          f:595}
+];
+
+(function() {
+  var menu = document.getElementById('acqMenu');
+  ACQ.forEach(function(item) {
+    var el = document.createElement('div');
+    el.className = 'acq-item' + (item.b === 'BMW / MINI' ? ' sel' : '');
+    el.innerHTML = '<span class="ai-b">'+item.b+'</span>'
+      + '<div class="ai-r"><span class="ai-f">$'+item.f.toLocaleString()+'</span>'
+      + '<span class="ai-ck">&#10003;</span></div>';
+    el.onclick = function() { pickAcq(item.b, item.f); };
+    menu.appendChild(el);
+  });
+})();
+
+function pickAcq(brand, fee) {
+  document.getElementById('l_acq').value = fee;
+  document.getElementById('acqBrand').textContent = brand;
+  document.getElementById('acqFee').textContent = '$' + fee.toLocaleString();
+  document.querySelectorAll('.acq-item').forEach(function(el) {
+    el.classList.toggle('sel', el.querySelector('.ai-b').textContent === brand);
+  });
+  closeAcq();
+}
+function toggleAcq() {
+  var t = document.getElementById('acqTrig');
+  var m = document.getElementById('acqMenu');
+  if (m.classList.contains('open')) { closeAcq(); return; }
+  t.classList.add('open'); m.classList.add('open');
+  var sel = m.querySelector('.sel');
+  if (sel) setTimeout(function(){ sel.scrollIntoView({block:'nearest'}); }, 10);
+}
+function closeAcq() {
+  document.getElementById('acqTrig').classList.remove('open');
+  document.getElementById('acqMenu').classList.remove('open');
+}
+document.addEventListener('click', function(e) {
+  var f = document.querySelector('.acq-field');
+  if (f && !f.contains(e.target)) closeAcq();
+});
+
+/* ── 1. LEASING ── */
+function calcLease() {
+  var msrp     = g('l_msrp');
+  var cap      = g('l_cap');
+  var mf       = g('l_mf');
+  var res_in   = g('l_res');
+  var term     = g('l_term');
+  var driveoff = g('l_driveoff');
+  var rebate   = g('l_rebate');
+  var acq      = g('l_acq');
+  var tax_rate = g('l_tax');
+
+  if (!msrp || !cap || !mf || !res_in || !term) {
+    alert('MSRP, Cap Cost, Money Factor, Residual, Term을 입력해주세요.'); return;
+  }
+
+  var reg      = calcReg(cap);
+  var lt       = 1 + tax_rate / 100;
+  var tax_adj  = 1 - tax_rate / 100;
+  var tax_adj1 = 1 - (tax_rate / 100) * (tax_rate / 100);
+
+  var cost     = acq + reg + 217.75;
+  var drive    = driveoff + rebate;
+  var acc_sub1 = cost - driveoff - rebate;
+  var sell_c   = cap + acc_sub1;
+  var acc      = cap + tax_adj * acc_sub1;
+  var mm = term * mf, mm1 = mm + 1, mm2 = mm - 1;
+
+  var lr, lr_disp;
+  if (res_in < 100) {
+    lr = msrp * (res_in / 100);
+    lr_disp = res_in.toFixed(2) + '% = ' + fmt(lr);
+  } else {
+    lr = res_in;
+    lr_disp = fmt(lr) + ' (' + (res_in / msrp * 100).toFixed(2) + '%)';
+  }
+
+  var lease = drive <= cost
+    ? ((sell_c * mm1) + (lr * mm2)) / (term - lt * mm1)
+    : ((acc    * mm1) + (lr * mm2)) / (term - tax_adj1 * mm1);
+
+  var ltax = lease * (lt - 1);
+  var l1   = lease * lt;
+
+  s('r_pay',  fmt(l1) + ' / mo');
+  s('r_sub',  'Before tax ' + fmt(lease) + '  +  Tax ' + fmt(ltax));
+  s('r_base', fmt(lease));
+  s('r_tax',  fmt(ltax));
+  s('r_res',  lr_disp);
+  s('r_reg',  fmt(reg));
+  s('r_apr',  (mf * 2400).toFixed(2) + '%');
+  show('res1');
+}
+
+/* ── 2. PURCHASING ── */
+function calcPurchase() {
+  var price  = g('p_price');
+  var acc_v  = g('p_acc');
+  var down   = g('p_down');
+  var term   = g('p_term');
+  var apr    = g('p_apr');
+  var tax_r  = g('p_tax');
+  var rebate = g('p_rebate');
+  var kbb    = g('p_kbb');
+
+  if (!price || !term) { alert('Selling Price와 Term을 입력해주세요.'); return; }
+
+  var st      = 1 + tax_r / 100;
+  var reg     = calcReg(price);
+  var taxAmt  = (price + acc_v + 80) * (st - 1);
+  var otd1    = (price + acc_v + 80) * st;
+  var otd     = otd1 + reg - down - rebate + 8.25;
+  var otd_r   = otd1 + reg - rebate + 8.25;
+  var finAmt  = otd_r - down;
+
+  var pay, interest;
+  if (apr) {
+    var r = (apr / 100) / 12;
+    pay = otd * r / (1 - Math.pow(1 + r, -term));
+    interest = pay * term - otd;
+  } else { pay = otd / term; interest = 0; }
+
+  s('p_pay',   fmt(pay) + ' / mo');
+  s('p_otd',   fmt(otd_r));
+  s('p_fin',   fmt(finAmt));
+  s('p_chg',   fmt(interest));
+  s('p_tax_r', fmt(taxAmt));
+  s('p_reg',   fmt(reg));
+  s('p_ltv',   kbb ? (otd / kbb * 100).toFixed(2) + '%' : '—');
+  show('res2');
+}
+
+/* ── 3. USED VEHICLE ── */
+function calcUsed() {
+  var price  = g('u_price');
+  var down   = g('u_down');
+  var term   = g('u_term');
+  var apr    = g('u_apr');
+  var tax_r  = g('u_tax');
+  var rebate = g('u_rebate');
+  var kbb    = g('u_kbb');
+
+  if (!price || !term) { alert('Selling Price와 Term을 입력해주세요.'); return; }
+
+  var st      = 1 + tax_r / 100;
+  var reg     = calcReg(price);
+  var taxAmt  = (price + 80) * (st - 1);
+  var otd1    = (price + 80) * st;
+  var otd     = otd1 + reg - down - rebate + 37.75;
+  var otd_r   = otd1 + reg - rebate + 37.75;
+  var finAmt  = otd_r - down;
+
+  var pay, interest;
+  if (apr) {
+    var r = (apr / 100) / 12;
+    pay = otd * r / (1 - Math.pow(1 + r, -term));
+    interest = pay * term - otd;
+  } else { pay = otd / term; interest = 0; }
+
+  s('u_pay',   fmt(pay) + ' / mo');
+  s('u_otd',   fmt(otd_r));
+  s('u_fin',   fmt(finAmt));
+  s('u_chg',   fmt(interest));
+  s('u_tax_r', fmt(taxAmt));
+  s('u_reg',   fmt(reg));
+  s('u_ltv',   kbb ? (otd / kbb * 100).toFixed(2) + '%' : '—');
+  show('res3');
+}
+</script>
+<!-- 프린트 전용 하단 면책 문구 -->
+<div class="pt-footer">
+  This quote is an estimate only and is subject to change. Prices do not include applicable taxes, license, and other fees.
+  &nbsp;·&nbsp; JSMY Auto Sales, Inc. &nbsp;·&nbsp; 8 Corporate Park Ste 300, Irvine, CA 92606 &nbsp;·&nbsp; (714) 681-0161
+</div>
+
+</body>
+</html>
