@@ -63,9 +63,12 @@ export const metadata: Metadata = {
     },
     other: {
         'geo.region': 'US-CA',
-        'geo.placename': 'Irvine, San Diego',
+        'geo.placename': 'Irvine, San Diego, Costa Mesa, Newport Beach',
         'geo.position': '33.6846;-117.8265',
         ICBM: '33.6846, -117.8265',
+    },
+    verification: {
+        google: 'google-site-verification-placeholder',
     },
 };
 
@@ -150,7 +153,11 @@ export default function RootLayout({
     ];
 
     return (
-        <html lang="en" className={`${inter.variable} ${outfit.variable}`}>
+        <html
+            lang="en"
+            className={`${inter.variable} ${outfit.variable}`}
+            suppressHydrationWarning
+        >
             <head>
                 <script
                     type="application/ld+json"
