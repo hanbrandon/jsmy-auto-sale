@@ -23,26 +23,26 @@ export const Hero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60 mb-8">
+            <span className="inline-block px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-[0.2em] text-white/70 mb-8">
               {t.hero.tag}
             </span>
           </motion.div>
 
           <motion.h1
-            initial={{ opacity: 0, y: 30 }}
+            initial={{ opacity: 0.01, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8, delay: 0.2 }}
+            transition={{ duration: 0.5 }}
             className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tighter leading-[0.9] mb-8"
           >
             {t.hero.title1}<br />
-            <span className="text-white/30">{t.hero.title2}</span>
+            <span className="text-white/50">{t.hero.title2}</span>
           </motion.h1>
 
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, delay: 0.4 }}
-            className="text-lg md:text-xl text-white/40 max-w-2xl mx-auto mb-10 text-balance"
+            className="text-lg md:text-xl text-white/60 max-w-2xl mx-auto mb-10 text-balance"
           >
             {t.hero.sub} {t.hero.location} <span className="text-white/80">{t.hero.allInOne}</span>
           </motion.p>
@@ -80,13 +80,13 @@ export const Hero = () => {
                   className="flex items-center gap-5 p-6 rounded-[2rem] bg-white/[0.02] border border-white/5 hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500 group"
                 >
                   <div className="w-12 h-12 rounded-2xl bg-white/5 flex items-center justify-center group-hover:scale-110 transition-transform">
-                    <badge.icon className="text-white/40 group-hover:text-white transition-colors" size={20} />
+                    <badge.icon className="text-white/50 group-hover:text-white transition-colors" size={20} />
                   </div>
                   <div className="text-left">
-                    <div className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-1">
+                    <div className="text-[10px] font-bold uppercase tracking-widest text-white/50 mb-1">
                       {badge.label}
                     </div>
-                    <div className="text-sm font-bold text-white/70 group-hover:text-white transition-colors">
+                    <div className="text-sm font-bold text-white/80 group-hover:text-white transition-colors">
                       {badge.value}
                     </div>
                   </div>
@@ -94,6 +94,7 @@ export const Hero = () => {
               ))}
             </div>
           </motion.div>
+
         </div>
       </div>
     </section>

@@ -200,9 +200,11 @@ export const InstagramGallery = ({
                                     src={item.url}
                                     alt={item.caption}
                                     fill
-                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                                    sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 25vw"
+                                    quality={75}
                                     className="object-cover transition-transform duration-[1.5s] ease-out group-hover:scale-110"
                                 />
+
 
                                 {/* Overlay Content */}
                                 <div className="absolute inset-0 z-20 bg-linear-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-all duration-500 flex flex-col justify-end p-8 md:p-10">

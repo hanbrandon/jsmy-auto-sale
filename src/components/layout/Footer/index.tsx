@@ -16,21 +16,21 @@ export const Footer = () => {
                             <span className="text-2xl font-black tracking-tighter text-white">
                                 JSMY AUTO
                             </span>
-                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 leading-none">
+                            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/50 leading-none">
                                 Sales & Lease
                             </span>
                         </a>
-                        <p className="text-white/40 max-w-sm leading-relaxed">
+                        <p className="text-white/60 max-w-sm leading-relaxed">
                             {t.hero.sub} Providing the best automotive
                             experience in California.
                         </p>
                     </div>
 
                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-white/80 mb-6">
+                        <h3 className="text-sm font-bold uppercase tracking-widest text-white/80 mb-6">
                             Explore
-                        </h4>
-                        <div className="flex flex-col gap-4 text-white/40">
+                        </h3>
+                        <div className="flex flex-col gap-4 text-white/60">
                             <a
                                 href="#services"
                                 className="hover:text-white transition-colors"
@@ -59,11 +59,11 @@ export const Footer = () => {
                     </div>
 
                     <div>
-                        <h4 className="text-sm font-bold uppercase tracking-widest text-white/80 mb-6">
+                        <h3 className="text-sm font-bold uppercase tracking-widest text-white/80 mb-6">
                             Contact & Follow
-                        </h4>
+                        </h3>
                         <div className="flex flex-col gap-6">
-                            <div className="text-white/40 text-sm space-y-2">
+                            <div className="text-white/60 text-sm space-y-2">
                                 <a
                                     href="mailto:justin.jsmyautosales@gmail.com"
                                     className="hover:text-white transition-colors block"
@@ -72,7 +72,7 @@ export const Footer = () => {
                                 </a>
                                 <p>8 Corporate Park #300</p>
                                 <p>Irvine, CA 92606</p>
-                                <p className="pt-2 text-white/20">
+                                <p className="pt-2 text-white/30">
                                     DEALER #95338
                                     <br />
                                     OL#: S926138
@@ -83,6 +83,7 @@ export const Footer = () => {
                                     href="https://www.instagram.com/jsmyautosales/"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label="Follow us on Instagram"
                                     className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
                                 >
                                     <HugeiconsIcon
@@ -94,6 +95,7 @@ export const Footer = () => {
                                     href="https://www.threads.net/@jsmyautosales?xmt=AQF0DLzd_Vz65vaH9LwiFyKWRWwdu7M7QFc38I4DP7NCDWE"
                                     target="_blank"
                                     rel="noopener noreferrer"
+                                    aria-label="Follow us on Threads"
                                     className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 transition-colors"
                                 >
                                     <HugeiconsIcon
@@ -107,7 +109,7 @@ export const Footer = () => {
                 </div>
 
                 <div className="mt-20 pt-8 border-t border-white/5 space-y-6">
-                    <div className="text-[9px] leading-relaxed text-white/20 font-light text-justify uppercase tracking-wider space-y-4">
+                    <div className="text-[9px] leading-relaxed text-white/30 font-light text-justify uppercase tracking-wider space-y-4">
                         <p>
                             *All third party brands and logos are the registered trademarks of their respected owners. This website is not affiliated with, endorsed by, or sponsored by CARFAX Inc., S&P Global or other related brands mentioned therein. All trademarks, including CARFAX, are the property of their respective owners and are used here for informational purposes only.
                         </p>
@@ -119,7 +121,7 @@ export const Footer = () => {
                         </p>
                     </div>
 
-                    <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/40">
+                    <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
                         <div>
                             © {new Date().getFullYear()} JSMY AUTO SALES, INC. ALL
                             RIGHTS RESERVED.
@@ -145,6 +147,7 @@ export const Footer = () => {
                             </a>
                         </div>
                     </div>
+
                 </div>
             </div>
         </footer>

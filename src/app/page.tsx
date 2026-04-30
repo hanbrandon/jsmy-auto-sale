@@ -1,14 +1,16 @@
 import { Navbar } from "@/components/layout/Navbar";
 import { Hero } from "@/components/sections/Hero";
 import { Services } from "@/components/sections/Services";
-import { InstagramGallery } from "@/components/sections/InstagramGallery";
-import { WhyChooseUs } from "@/components/sections/WhyChooseUs";
-import { Testimonials } from "@/components/sections/Testimonials";
-import { FAQ } from "@/components/sections/FAQ";
-import { Contact } from "@/components/sections/Contact";
-import { Footer } from "@/components/layout/Footer";
-import { FloatingActionButton } from "@/components/ui/FloatingActionButton";
+import dynamic from "next/dynamic";
 import { BeholdPost } from "@/types/instagram";
+
+const InstagramGallery = dynamic(() => import("@/components/sections/InstagramGallery").then(mod => mod.InstagramGallery));
+const WhyChooseUs = dynamic(() => import("@/components/sections/WhyChooseUs").then(mod => mod.WhyChooseUs));
+const Testimonials = dynamic(() => import("@/components/sections/Testimonials").then(mod => mod.Testimonials));
+const FAQ = dynamic(() => import("@/components/sections/FAQ").then(mod => mod.FAQ));
+const Contact = dynamic(() => import("@/components/sections/Contact").then(mod => mod.Contact));
+const Footer = dynamic(() => import("@/components/layout/Footer").then(mod => mod.Footer));
+const FloatingActionButton = dynamic(() => import("@/components/ui/FloatingActionButton").then(mod => mod.FloatingActionButton));
 
 async function getInstagramPosts(): Promise<BeholdPost[]> {
   let feedId = process.env.NEXT_PUBLIC_BEHOLD_FEED_ID;
