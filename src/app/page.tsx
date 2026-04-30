@@ -11,14 +11,26 @@ import { FloatingActionButton } from "@/components/ui/FloatingActionButton";
 import { BeholdPost } from "@/types/instagram";
 
 async function getInstagramPosts(): Promise<BeholdPost[]> {
-  const feedId = process.env.NEXT_PUBLIC_BEHOLD_FEED_ID;
+  let feedId = process.env.NEXT_PUBLIC_BEHOLD_FEED_ID;
+  if (!feedId) return [];
+
+  // Extract ID if full URL was provided
+  if (feedId.startsWith('http')) {
+    feedId = feedId.split('/').pop() || '';
+  }
+
   if (!feedId) return [];
 
   try {
     const response = await fetch(`https://feeds.behold.so/${feedId}`, {
       next: { revalidate: 3600 }, // Revalidate every hour
     });
-    if (!response.ok) throw new Error("Failed to fetch feed");
+    
+    if (!response.ok) {
+      console.error(`Failed to fetch Behold feed (${feedId}). Status: ${response.status}`);
+      return [];
+    }
+
     const data = await response.json();
     // Behold can return an array directly or an object with a posts key
     return Array.isArray(data) ? data : data.posts || [];

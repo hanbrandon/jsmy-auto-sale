@@ -28,12 +28,14 @@ export const Navbar = () => {
     return (
         <nav
             className={cn(
-                'fixed top-0 left-0 right-0 z-100 transition-all duration-500',
+                'fixed top-0 left-0 right-0 z-100 transition-all duration-700',
                 scrolled
-                    ? 'py-4 bg-black/80 backdrop-blur-xl border-b border-white/5'
-                    : 'py-6 md:py-8 bg-transparent',
+                    ? 'py-4 bg-black/60 backdrop-blur-2xl border-b border-white/[0.08] shadow-[0_4px_30px_rgba(0,0,0,0.1)]'
+                    : 'py-6 md:py-10 bg-transparent',
             )}
         >
+            <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent opacity-0 transition-opacity duration-700 scrolled:opacity-100" />
+
             <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
                 {/* Logo */}
                 <a href="#" className="flex flex-col">
@@ -48,13 +50,15 @@ export const Navbar = () => {
                 {/* Desktop Nav */}
                 <div className="hidden md:flex items-center gap-8">
                     {navLinks.map((link) => (
-                        <a
+                        <motion.a
                             key={link.name}
                             href={link.href}
-                            className="text-sm font-medium text-white/50 hover:text-white transition-colors"
+                            whileHover={{ y: -2 }}
+                            className="relative text-sm font-medium text-white/50 hover:text-white transition-colors group"
                         >
                             {link.name}
-                        </a>
+                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
+                        </motion.a>
                     ))}
                 </div>
 

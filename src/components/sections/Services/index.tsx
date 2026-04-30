@@ -3,6 +3,7 @@
 import { Section } from "@/components/ui/Section";
 import { Heading } from "@/components/ui/Heading";
 import { translations } from "@/constants/translations";
+
 import { motion } from "framer-motion";
 
 export const Services = () => {
@@ -25,17 +26,21 @@ export const Services = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ delay: index * 0.1 }}
-              className="group p-8 rounded-[2rem] bg-white/[0.03] border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-500"
+              className="group p-10 rounded-[3rem] bg-white/[0.02] border border-white/[0.05] hover:bg-white/[0.05] hover:border-white/10 transition-all duration-700 relative overflow-hidden"
             >
-              <div className="mb-6 flex justify-between items-start">
-                <span className="px-3 py-1 rounded-full bg-white/5 border border-white/10 text-[10px] font-bold uppercase tracking-wider text-white/40 group-hover:text-white transition-colors">
+              <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
+              
+              <div className="mb-10 flex justify-between items-start relative z-10">
+                <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-white/30 group-hover:text-white transition-colors duration-500">
                   {item.tag}
                 </span>
               </div>
-              <h3 className="text-2xl font-bold mb-4 group-hover:translate-x-1 transition-transform duration-500">
+
+
+              <h3 className="text-3xl font-bold mb-6 tracking-tight group-hover:translate-x-2 transition-transform duration-700 relative z-10">
                 {item.title}
               </h3>
-              <p className="text-white/40 group-hover:text-white/60 transition-colors duration-500 leading-relaxed">
+              <p className="text-white/40 group-hover:text-white/70 transition-colors duration-700 leading-relaxed text-lg relative z-10">
                 {item.desc}
               </p>
             </motion.div>

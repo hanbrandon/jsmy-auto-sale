@@ -60,7 +60,12 @@ export const Button = ({
 
     if (href) {
         return (
-            <a href={href} className={combinedClassName} aria-label={ariaLabel}>
+            <a
+                href={href}
+                className={combinedClassName}
+                aria-label={ariaLabel}
+                suppressHydrationWarning
+            >
                 {content}
             </a>
         );
@@ -73,8 +78,10 @@ export const Button = ({
             className={combinedClassName}
             aria-label={ariaLabel}
             disabled={disabled}
+            suppressHydrationWarning
         >
             {content}
         </button>
+
     );
 };

@@ -45,7 +45,7 @@ export const metadata: Metadata = {
         siteName: 'JSMY Auto Sales',
         images: [
             {
-                url: '/og-image.jpg',
+                url: '/og-image.png',
                 width: 1200,
                 height: 630,
                 alt: 'JSMY Auto Sales - Premium Automotive Experience',
@@ -59,7 +59,10 @@ export const metadata: Metadata = {
         title: 'JSMY Auto Sales | Premium Automotive Experience',
         description:
             'New Cars, Leasing, Used Cars, No Credit Financing in Irvine & San Diego.',
-        images: ['/og-image.jpg'],
+        images: ['/og-image.png'],
+    },
+    icons: {
+        icon: '/favicon.ico',
     },
     other: {
         'geo.region': 'US-CA',

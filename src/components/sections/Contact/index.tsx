@@ -77,7 +77,7 @@ export const Contact = () => {
     const labelStyles =
         'text-[10px] font-bold uppercase tracking-widest text-white/40 pl-1 mb-2 block';
     const selectStyles =
-        'w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-white/20 transition-all text-sm text-white appearance-none cursor-pointer hover:bg-white/7';
+        'w-full bg-white/5 border border-white/10 rounded-2xl px-5 py-3.5 focus:outline-none focus:border-white/20 transition-all text-sm text-white appearance-none cursor-pointer hover:bg-white/7 [&>option]:text-black';
 
     return (
         <Section id="contact" disableContain>
@@ -172,6 +172,7 @@ export const Contact = () => {
                                     onClick={() =>
                                         setActiveForm(form.id as FormType)
                                     }
+                                    suppressHydrationWarning
                                     className={cn(
                                         'flex flex-col items-center justify-center py-4 px-2 rounded-3xl transition-all gap-2 border border-transparent',
                                         activeForm === form.id
@@ -179,6 +180,7 @@ export const Contact = () => {
                                             : 'text-white/40 hover:text-white hover:bg-white/5',
                                     )}
                                 >
+
                                     <form.icon size={20} />
                                     <span className="text-[10px] font-bold uppercase tracking-wider">
                                         {form.label}
@@ -233,9 +235,11 @@ export const Contact = () => {
                                                 id="name"
                                                 name="name"
                                                 required
+                                                suppressHydrationWarning
                                                 className={inputStyles}
                                                 placeholder="John Doe"
                                             />
+
                                         </div>
                                         <div className="space-y-2">
                                             <label
@@ -249,9 +253,11 @@ export const Contact = () => {
                                                 id="email"
                                                 name="email"
                                                 required
+                                                suppressHydrationWarning
                                                 className={inputStyles}
                                                 placeholder="john@example.com"
                                             />
+
                                         </div>
                                     </div>
 
@@ -268,9 +274,11 @@ export const Contact = () => {
                                                 id="phone"
                                                 name="phone"
                                                 required
+                                                suppressHydrationWarning
                                                 className={inputStyles}
                                                 placeholder="(123) 456-7890"
                                             />
+
                                         </div>
                                         <div className="space-y-2">
                                             <label
@@ -282,8 +290,10 @@ export const Contact = () => {
                                             <select
                                                 id="method"
                                                 name="method"
+                                                suppressHydrationWarning
                                                 className={selectStyles}
                                             >
+
                                                 <option value="call">
                                                     Phone Call
                                                 </option>
@@ -345,9 +355,11 @@ export const Contact = () => {
                                                     id="vin"
                                                     name="vin"
                                                     required
+                                                    suppressHydrationWarning
                                                     className={inputStyles}
                                                     placeholder="17-digit VIN"
                                                 />
+
                                             </div>
                                         </motion.div>
                                     )}
@@ -370,9 +382,11 @@ export const Contact = () => {
                                                     id="make"
                                                     name="make"
                                                     required
+                                                    suppressHydrationWarning
                                                     className={inputStyles}
                                                     placeholder="e.g. Tesla"
                                                 />
+
                                             </div>
                                             <div className="space-y-2">
                                                 <label
@@ -386,9 +400,11 @@ export const Contact = () => {
                                                     id="model"
                                                     name="model"
                                                     required
+                                                    suppressHydrationWarning
                                                     className={inputStyles}
                                                     placeholder="e.g. Model Y"
                                                 />
+
                                             </div>
                                             <div className="space-y-2">
                                                 <label
@@ -400,8 +416,10 @@ export const Contact = () => {
                                                 <select
                                                     id="purchase_type"
                                                     name="purchase_type"
+                                                    suppressHydrationWarning
                                                     className={selectStyles}
                                                 >
+
                                                     <option value="lease">
                                                         Lease
                                                     </option>
@@ -433,9 +451,11 @@ export const Contact = () => {
                                                     type="text"
                                                     id="budget"
                                                     name="budget"
+                                                    suppressHydrationWarning
                                                     className={inputStyles}
                                                     placeholder="e.g. $20k - $30k"
                                                 />
+
                                             </div>
                                             <div className="space-y-2">
                                                 <label
@@ -503,11 +523,13 @@ export const Contact = () => {
                                                             id="mileage"
                                                             name="mileage"
                                                             required
+                                                            suppressHydrationWarning
                                                             className={
                                                                 inputStyles
                                                             }
                                                             placeholder="00,000"
                                                         />
+
                                                         <span className="absolute right-5 top-1/2 -translate-y-1/2 text-xs font-bold text-white/20 uppercase tracking-widest">
                                                             Miles
                                                         </span>
@@ -580,6 +602,7 @@ export const Contact = () => {
                                                                 value={
                                                                     color.name
                                                                 }
+                                                                required
                                                                 className="sr-only peer"
                                                             />
                                                             <div
@@ -682,8 +705,10 @@ export const Contact = () => {
                                                     id="privacy_agree"
                                                     name="privacy_agree"
                                                     required
+                                                    suppressHydrationWarning
                                                     className="peer appearance-none w-5 h-5 rounded-md border border-white/10 bg-white/5 checked:bg-white checked:border-white transition-all"
                                                 />
+
                                                 <CheckCircle2
                                                     size={12}
                                                     className="absolute text-black opacity-0 peer-checked:opacity-100 transition-opacity"

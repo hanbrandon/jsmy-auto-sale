@@ -30,11 +30,12 @@ export const FAQ = () => {
               >
                 <button
                   onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                  className="w-full p-8 flex items-center justify-between text-left"
+                  suppressHydrationWarning
+                  className="w-full p-8 flex items-center justify-between text-left group/btn"
                 >
-                  <span className="text-xl font-bold pr-8">{item.q}</span>
-                  <div className="flex-shrink-0 w-8 h-8 rounded-full bg-white/5 flex items-center justify-center">
-                    {openIndex === index ? <Minus size={16} /> : <Plus size={16} />}
+                  <span className="text-xl font-bold pr-8 group-hover:text-white transition-colors">{item.q}</span>
+                  <div className="flex-shrink-0 w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover/btn:bg-white/10 group-hover/btn:scale-110 transition-all">
+                    {openIndex === index ? <Minus size={18} /> : <Plus size={18} />}
                   </div>
                 </button>
                 
