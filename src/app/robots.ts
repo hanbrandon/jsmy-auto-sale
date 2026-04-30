@@ -7,6 +7,7 @@ export default function robots(): MetadataRoute.Robots {
             allow: '/',
             disallow: ['/api/', '/_next/', '/admin'],
         },
-        sitemap: 'https://jsmyauto.com/sitemap.xml',
+        sitemap: 'https://jsmyautosales.com/sitemap.xml',
+
     };
 }

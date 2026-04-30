@@ -44,7 +44,7 @@ export const Heading = ({
         transition={{ delay: 0.1 }}
         className="text-3xl md:text-5xl font-bold tracking-tight"
       >
-        {title1} {title2 && <span className="text-white/40">{title2}</span>}
+        {title1} {title2 && <span className="text-white/50">{title2}</span>}
       </motion.h2>
 
       {sub && (
@@ -53,11 +53,12 @@ export const Heading = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ delay: 0.2 }}
-          className="text-lg text-white/50 max-w-2xl text-balance"
+          className="text-lg text-white/60 max-w-2xl text-balance"
         >
           {sub}
         </motion.p>
       )}
+
     </div>
   );
 };

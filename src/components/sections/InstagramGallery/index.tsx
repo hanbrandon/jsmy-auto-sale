@@ -126,7 +126,7 @@ export const InstagramGallery = ({
                             initial={{ opacity: 0, x: -20 }}
                             whileInView={{ opacity: 1, x: 0 }}
                             viewport={{ once: true }}
-                            className="flex items-center gap-3 text-white/40 mb-6"
+                            className="flex items-center gap-3 text-white/60 mb-6"
                         >
                             <InstagramIcon size={16} />
                             <span className="text-[10px] font-black tracking-[0.4em] uppercase">
@@ -140,7 +140,7 @@ export const InstagramGallery = ({
                             className="text-4xl sm:text-5xl md:text-7xl font-bold tracking-tight"
                         >
                             {t.gallery.title1} <br />
-                            <span className="text-white/40">
+                            <span className="text-white/50">
                                 {t.gallery.title2}
                             </span>
                         </motion.h2>
@@ -153,8 +153,9 @@ export const InstagramGallery = ({
                         initial={{ opacity: 0, x: 20 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
-                        className="group flex items-center gap-3 text-[10px] font-black tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors"
+                        className="group flex items-center gap-3 text-[10px] font-black tracking-[0.2em] uppercase text-white/60 hover:text-white transition-colors"
                     >
+
                         {t.gallery.follow}
                         <ArrowUpRight
                             size={14}

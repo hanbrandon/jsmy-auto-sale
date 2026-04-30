@@ -31,7 +31,7 @@ export const Services = () => {
               <div className="absolute inset-0 bg-gradient-to-br from-white/[0.02] to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               
               <div className="mb-10 flex justify-between items-start relative z-10">
-                <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-white/30 group-hover:text-white transition-colors duration-500">
+                <span className="px-4 py-1.5 rounded-full bg-white/5 border border-white/10 text-[10px] font-black uppercase tracking-[0.2em] text-white/60 group-hover:text-white transition-colors duration-500">
                   {item.tag}
                 </span>
               </div>
@@ -40,9 +40,10 @@ export const Services = () => {
               <h3 className="text-3xl font-bold mb-6 tracking-tight group-hover:translate-x-2 transition-transform duration-700 relative z-10">
                 {item.title}
               </h3>
-              <p className="text-white/40 group-hover:text-white/70 transition-colors duration-700 leading-relaxed text-lg relative z-10">
+              <p className="text-white/60 group-hover:text-white/80 transition-colors duration-700 leading-relaxed text-lg relative z-10">
                 {item.desc}
               </p>
+
             </motion.div>
           ))}
         </div>

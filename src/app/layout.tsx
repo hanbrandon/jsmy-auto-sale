@@ -17,7 +17,8 @@ const outfit = Outfit({
 
 // ... (metadata and dealerschema remain the same)
 export const metadata: Metadata = {
-    metadataBase: new URL('https://jsmyauto.com'),
+    metadataBase: new URL('https://jsmyautosales.com'),
+
     title: {
         default: 'JSMY Auto Sales | Premium Automotive Experience',
         template: '%s | JSMY Auto Sales',
@@ -41,8 +42,9 @@ export const metadata: Metadata = {
         title: 'JSMY Auto Sales | Premium Automotive Experience',
         description:
             'New Cars, Leasing, Used Cars, No Credit Financing in Irvine & San Diego.',
-        url: 'https://jsmyauto.com',
+        url: 'https://jsmyautosales.com',
         siteName: 'JSMY Auto Sales',
+
         images: [
             {
                 url: '/og-image.png',
@@ -104,14 +106,17 @@ export default function RootLayout({
         {
             '@context': 'https://schema.org',
             '@type': 'AutoDealer',
-            '@id': 'https://jsmyauto.com/#dealer',
+            '@id': 'https://jsmyautosales.com/#dealer',
             name: 'JSMY Auto Sales',
+
             description:
                 'Premium Automotive Experience specializing in new cars, leasing, and no-credit financing for Korean-speaking customers.',
-            url: 'https://jsmyauto.com',
+            url: 'https://jsmyautosales.com',
             telephone: '+1-714-681-0161',
+
             priceRange: '$$$',
-            image: 'https://jsmyauto.com/logo.png',
+            image: 'https://jsmyautosales.com/logo.png',
+
             address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'Irvine',
@@ -144,8 +149,9 @@ export default function RootLayout({
             '@context': 'https://schema.org',
             '@type': 'AutoDealer',
             name: 'JSMY Auto Sales San Diego',
-            url: 'https://jsmyauto.com',
+            url: 'https://jsmyautosales.com',
             telephone: '+1-714-681-0161',
+
             address: {
                 '@type': 'PostalAddress',
                 addressLocality: 'San Diego',
