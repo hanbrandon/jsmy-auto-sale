@@ -42,7 +42,7 @@ export const Navbar = () => {
                     <span className="text-xl font-black tracking-tighter text-white">
                         JSMY AUTO
                     </span>
-                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/40 leading-none">
+                    <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60 leading-none">
                         Sales & Lease
                     </span>
                 </a>
@@ -54,13 +54,14 @@ export const Navbar = () => {
                             key={link.name}
                             href={link.href}
                             whileHover={{ y: -2 }}
-                            className="relative text-sm font-medium text-white/50 hover:text-white transition-colors group"
+                            className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
                         >
                             {link.name}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
                         </motion.a>
                     ))}
                 </div>
+
 
                 {/* Actions */}
                 <div className="flex items-center gap-4">
