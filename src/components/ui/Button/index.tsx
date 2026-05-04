@@ -28,7 +28,7 @@ export const Button = ({
     disabled,
 }: ButtonProps) => {
     const baseStyles =
-        'inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 active:scale-95';
+        'inline-flex items-center justify-center rounded-full font-medium transition-all duration-300 active:scale-95 cursor-pointer';
 
     const variants = {
         primary:

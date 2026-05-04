@@ -19,10 +19,11 @@ export const Navbar = () => {
     }, []);
 
     const navLinks = [
-        { name: t.nav.services, href: '#services' },
-        { name: t.nav.gallery, href: '#gallery' },
-        { name: t.nav.whyUs, href: '#why-us' },
-        { name: t.nav.contact, href: '#contact' },
+        { name: t.nav.services, href: '/#services' },
+        { name: t.nav.gallery, href: '/#gallery' },
+        { name: 'PRE-APPROVE', href: '/pre-approve' },
+        { name: t.nav.whyUs, href: '/#why-us' },
+        { name: t.nav.contact, href: '/#contact' },
     ];
 
     return (
@@ -54,7 +55,7 @@ export const Navbar = () => {
                             key={link.name}
                             href={link.href}
                             whileHover={{ y: -2 }}
-                            className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group"
+                            className="relative text-sm font-medium text-white/70 hover:text-white transition-colors group cursor-pointer"
                         >
                             {link.name}
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-white transition-all duration-300 group-hover:w-full" />
@@ -101,7 +102,7 @@ export const Navbar = () => {
                                     key={link.name}
                                     href={link.href}
                                     onClick={() => setMobileMenuOpen(false)}
-                                    className="text-2xl font-bold text-white/70 hover:text-white transition-colors"
+                                    className="text-2xl font-bold text-white/70 hover:text-white transition-colors cursor-pointer"
                                 >
                                     {link.name}
                                 </a>

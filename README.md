@@ -85,3 +85,26 @@ Optimized for **Lighthouse 100**, featuring:
 - Metadata API for dynamic titles and descriptions
 - `content-visibility` optimizations for high performance
 - Responsive image handling with `next/image`
+
+## 🧪 Testing Automation (Playwright)
+
+The project includes E2E testing automation for the **Pre-Approve** form to ensure reliable data submission and validation.
+
+### Run Tests
+
+1. Start the development server:
+   ```bash
+   pnpm run dev
+   ```
+2. In a separate terminal, run Playwright:
+   ```bash
+   # Run in UI mode (recommended for local testing)
+   npx playwright test --ui
+
+   # Run all tests in headless mode
+   npx playwright test
+   ```
+
+### Test Coverage
+- **Personal Application**: Validates Step 1, Step 2 (Applicant Info, Residence, Work History), and submission success.
+- **Business Application**: Validates Step 1, Application Type switching, Business Info, and submission success.
