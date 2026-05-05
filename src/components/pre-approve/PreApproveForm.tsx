@@ -369,7 +369,7 @@ const PreApproveForm = () => {
             signature,
         };
         try {
-            const response = await fetch('/api/pre-approve', {
+            const response = await fetch('/api/credit-application', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(payload),

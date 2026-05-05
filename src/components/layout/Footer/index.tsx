@@ -56,10 +56,10 @@ export const Footer = () => {
                                 {t.nav.contact}
                             </a>
                             <a
-                                href="/pre-approve"
+                                href="/credit-application"
                                 className="hover:text-white transition-colors"
                             >
-                                Pre-approve
+                                Credit Application
                             </a>
                         </div>
                     </div>
@@ -117,20 +117,51 @@ export const Footer = () => {
                 <div className="mt-20 pt-8 border-t border-white/5 space-y-6">
                     <div className="text-[9px] leading-relaxed text-white/30 font-light text-justify uppercase tracking-wider space-y-4">
                         <p>
-                            *All third party brands and logos are the registered trademarks of their respected owners. This website is not affiliated with, endorsed by, or sponsored by CARFAX Inc., S&P Global or other related brands mentioned therein. All trademarks, including CARFAX, are the property of their respective owners and are used here for informational purposes only.
+                            *All third party brands and logos are the registered
+                            trademarks of their respected owners. This website
+                            is not affiliated with, endorsed by, or sponsored by
+                            CARFAX Inc., S&P Global or other related brands
+                            mentioned therein. All trademarks, including CARFAX,
+                            are the property of their respective owners and are
+                            used here for informational purposes only.
                         </p>
                         <p>
-                            We retrieve carfax reports for free by scraping free reports available to the public here: carfax.com/cars-for-sale. We do not re-sell the reports. We charge a fee for scraping and organizing the free reports that are already available to the public. We do not modify reports and present them as is. We do not claim to create the reports. They are created exclusively by CARFAX, Inc. The reports are not defined as private data as they can be found online without needing a username and passcode. Web scraping has been declared legal in the United States. On September 9, 2019 the U.S. 9th circuit court of Appeals ruled (Appeal from the United States District Court for the Northern District of California) that web scraping public sites does not violate the CFAA (Computer Fraud and Abuse Act).
+                            We retrieve carfax reports for free by scraping free
+                            reports available to the public here:
+                            carfax.com/cars-for-sale. We do not re-sell the
+                            reports. We charge a fee for scraping and organizing
+                            the free reports that are already available to the
+                            public. We do not modify reports and present them as
+                            is. We do not claim to create the reports. They are
+                            created exclusively by CARFAX, Inc. The reports are
+                            not defined as private data as they can be found
+                            online without needing a username and passcode. Web
+                            scraping has been declared legal in the United
+                            States. On September 9, 2019 the U.S. 9th circuit
+                            court of Appeals ruled (Appeal from the United
+                            States District Court for the Northern District of
+                            California) that web scraping public sites does not
+                            violate the CFAA (Computer Fraud and Abuse Act).
                         </p>
                         <p>
-                            Unless otherwise stated, prices do not include government fees and taxes, any finance charges, any dealer document processing charge, or any emission testing charge. All vehicles are subject to prior sale. All financing is subject to credit approval by third-party lenders. Rates and terms may vary based on credit history, down payment, and vehicle age. While every effort is made to ensure the accuracy of the information, JSMY Auto Sales is not responsible for any typographical or content errors. Please verify all information with a representative.
+                            Unless otherwise stated, prices do not include
+                            government fees and taxes, any finance charges, any
+                            dealer document processing charge, or any emission
+                            testing charge. All vehicles are subject to prior
+                            sale. All financing is subject to credit approval by
+                            third-party lenders. Rates and terms may vary based
+                            on credit history, down payment, and vehicle age.
+                            While every effort is made to ensure the accuracy of
+                            the information, JSMY Auto Sales is not responsible
+                            for any typographical or content errors. Please
+                            verify all information with a representative.
                         </p>
                     </div>
 
                     <div className="pt-8 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold uppercase tracking-[0.2em] text-white/60">
                         <div>
-                            © {new Date().getFullYear()} JSMY AUTO SALES, INC. ALL
-                            RIGHTS RESERVED.
+                            © {new Date().getFullYear()} JSMY AUTO SALES, INC.
+                            ALL RIGHTS RESERVED.
                         </div>
                         <div className="flex gap-8">
                             <a
@@ -153,7 +184,6 @@ export const Footer = () => {
                             </a>
                         </div>
                     </div>
-
                 </div>
             </div>
         </footer>

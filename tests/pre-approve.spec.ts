@@ -1,9 +1,9 @@
 import { test, expect } from '@playwright/test';
 
-test.describe('Pre-Approve Form Automation', () => {
+test.describe('Credit Application Form Automation', () => {
     test('should fill out and submit the personal pre-approval form', async ({ page }) => {
-        // Go to the pre-approve page
-        await page.goto('/pre-approve');
+        // Go to the credit application page
+        await page.goto('/credit-application');
 
         // --- Step 1: Basic Info ---
         await page.fill('#firstName', 'Test');
@@ -56,8 +56,8 @@ test.describe('Pre-Approve Form Automation', () => {
     });
 
     test('should fill out and submit the business pre-approval form', async ({ page }) => {
-        // Go to the pre-approve page
-        await page.goto('/pre-approve');
+        // Go to the credit application page
+        await page.goto('/credit-application');
 
         // --- Step 1: Basic Info ---
         await page.fill('#firstName', 'Biz');
