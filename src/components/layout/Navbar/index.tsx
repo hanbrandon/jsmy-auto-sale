@@ -21,7 +21,6 @@ export const Navbar = () => {
     const navLinks = [
         { name: t.nav.services, href: '/#services' },
         { name: t.nav.gallery, href: '/#gallery' },
-        { name: 'PRE-APPROVE', href: '/pre-approve' },
         { name: t.nav.whyUs, href: '/#why-us' },
         { name: t.nav.contact, href: '/#contact' },
     ];

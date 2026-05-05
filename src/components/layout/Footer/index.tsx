@@ -55,6 +55,12 @@ export const Footer = () => {
                             >
                                 {t.nav.contact}
                             </a>
+                            <a
+                                href="/pre-approve"
+                                className="hover:text-white transition-colors"
+                            >
+                                Pre-approve
+                            </a>
                         </div>
                     </div>
 
