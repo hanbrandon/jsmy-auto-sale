@@ -39,7 +39,7 @@ export const Navbar = () => {
 
             <div className="relative z-10 container mx-auto px-6 md:px-12 flex items-center justify-between">
                 {/* Logo */}
-                <a href="#" className="flex flex-col">
+                <a href="/" className="flex flex-col">
                     <span className="text-xl font-black tracking-tighter text-white">
                         JSMY AUTO
                     </span>

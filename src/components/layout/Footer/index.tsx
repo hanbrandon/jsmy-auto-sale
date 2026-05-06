@@ -12,7 +12,7 @@ export const Footer = () => {
             <div className="container mx-auto px-6 md:px-12">
                 <div className="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
                     <div className="md:col-span-2">
-                        <a href="#" className="flex flex-col mb-8">
+                        <a href="/" className="flex flex-col mb-8">
                             <span className="text-2xl font-black tracking-tighter text-white">
                                 JSMY AUTO
                             </span>
