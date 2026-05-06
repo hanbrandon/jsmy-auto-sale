@@ -4,7 +4,7 @@ import { FloatingActionButton } from '@/components/ui/FloatingActionButton';
 import NextLink from 'next/link';
 
 export const metadata = {
-    title: 'Terms & Conditions | JSMY Auto Sales',
+    title: 'Terms & Conditions',
     description:
         'Terms and Conditions for using JSMY AUTO SALES, INC website and services. Information on automotive sales, leasing, and credit approval.',
 };

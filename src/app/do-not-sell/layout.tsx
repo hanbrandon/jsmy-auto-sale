@@ -1,5 +1,5 @@
 export const metadata = {
-    title: 'Do Not Sell or Share My Personal Information | JSMY Auto Sales',
+    title: 'Do Not Sell or Share My Personal Information',
     description:
         'California and Nevada residents have the right to opt-out of the sale or sharing of their personal information. Learn how to exercise your rights with JSMY AUTO SALES, INC.',
 };

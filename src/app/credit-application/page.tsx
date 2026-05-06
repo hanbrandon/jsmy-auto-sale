@@ -4,7 +4,7 @@ import PreApproveForm from "@/components/pre-approve/PreApproveForm";
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Credit Application | JSMY Auto Sales',
+  title: 'Credit Application',
   description: 'Apply for credit online. Fast and secure credit application for your next vehicle at JSMY Auto Sales.',
 };
 

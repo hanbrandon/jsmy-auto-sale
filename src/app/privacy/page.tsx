@@ -4,7 +4,7 @@ import { FloatingActionButton } from '@/components/ui/FloatingActionButton';
 import NextLink from 'next/link';
 
 export const metadata = {
-    title: 'Privacy Policy | JSMY Auto Sales',
+    title: 'Privacy Policy',
     description:
         'Privacy Policy for JSMY AUTO SALES, INC. Learn how we collect, use, and protect your personal information in compliance with CCPA/CPRA.',
 };

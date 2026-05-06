@@ -72,9 +72,6 @@ export const metadata: Metadata = {
         'geo.position': '33.6846;-117.8265',
         ICBM: '33.6846, -117.8265',
     },
-    verification: {
-        google: 'google-site-verification-placeholder',
-    },
 };
 
 export const viewport: Viewport = {
@@ -115,7 +112,7 @@ export default function RootLayout({
             telephone: '+1-714-681-0161',
 
             priceRange: '$$$',
-            image: 'https://jsmyautosales.com/logo.png',
+            image: 'https://jsmyautosales.com/og-image.png',
 
             address: {
                 '@type': 'PostalAddress',
